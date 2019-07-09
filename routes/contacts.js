@@ -113,7 +113,7 @@ router.put("/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    let contact = await Contact.findById(req.params.id);
+    const contact = await Contact.findById(req.params.id);
     if (!contact) return res.status(404).json({ msg: "contact not found" });
 
     //make sure contact owns contact
@@ -122,7 +122,7 @@ router.delete("/:id", auth, async (req, res) => {
       return res.status(401).json({ msg: "not authorized" });
     }
 
-    await Contact.findByIdAndDelete(req.params.id);
+    await Contact.findByIdAndRemove(req.params.id);
     res.json({ msg: "contact has been removed" });
   } catch (err) {
     console.error(err.message);
